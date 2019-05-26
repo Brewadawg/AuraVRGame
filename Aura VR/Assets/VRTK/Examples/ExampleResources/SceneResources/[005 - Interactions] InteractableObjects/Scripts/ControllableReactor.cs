@@ -10,6 +10,8 @@
         public Text displayText;
         public string outputOnMax = "Maximum Reached";
         public string outputOnMin = "Minimum Reached";
+        public Rigidbody cubeRb;
+        public int force;
 
         protected virtual void OnEnable()
         {
@@ -18,12 +20,17 @@
             controllable.MaxLimitReached += MaxLimitReached;
             controllable.MinLimitReached += MinLimitReached;
         }
-
+        
         protected virtual void ValueChanged(object sender, ControllableEventArgs e)
         {
             if (displayText != null)
             {
                 displayText.text = e.value.ToString("F1");
+            }
+            
+            if (cubeRb != null)
+            {
+                cubeRb.AddForce(0, 0, (e.value * force));
             }
         }
 
